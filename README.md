@@ -21,8 +21,8 @@ This course is called predictive analysis/inference, aiming to help you broadly 
     *   [Requirements](#requirements)
     *   [Install](#install)
     *   [Usage](#usage)
-*   [Lab 01](#Lab 01)
-*   [Lab 02](#Lab 02)
+*   [Lab 01](#lab 01)
+*   [Lab 02](#lab 02)
 
 
 ### Install
