@@ -21,8 +21,8 @@ This course is called predictive analysis/inference, aiming to help you broadly 
     *   [Requirements](#requirements)
     *   [Install](#install)
     *   [Usage](#usage)
-*   [Lab 01](#lab 01)
-*   [Lab 02](#lab 02)
+*   [Lab 01](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2001)
+*   [Lab 02](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2002)
 
 
 ### Install
