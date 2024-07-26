@@ -1,0 +1,29 @@
+---
+title: "STA521_Lab01_2024Fall"
+author: "Justin Kao"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+# Set up our dataset. Source: Kaggle
+```{r}
+rm(list=ls())
+student_performance <- read.csv("Student_Performance.csv", header = TRUE)
+```
+
+# Basic EDA
+```{r}
+summary(student_performance)
+```
+
+```{r}
+library(ggplot2)
+
+histogram <- ggplot(data = student_performance, aes(x = Performance.Index)) + 
+  geom_histogram()
+
+# Display the histogram
+print(histogram)
+```
+
