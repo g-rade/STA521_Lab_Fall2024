@@ -1,6 +1,6 @@
 # STA521 Lab Fall 2024
 
-![](stat-sci-updated.png){width="236"}
+![](stat-sci-updated.png){}
 
 ## Authors
 
