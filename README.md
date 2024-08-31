@@ -9,7 +9,7 @@
 
 ## Schedule
 
-This course is STA 521 Predictive Analysis/Inference, aiming to help you broadly gain some idea of the modern machine learning and statistics method.
+This course is STA 521 - Predictive Modeling and Statistical Learning, aiming to help you broadly gain some idea of the modern machine learning and statistics method.
 
 ## Rubrics
 
