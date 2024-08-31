@@ -45,7 +45,8 @@ This course is STA 521 - Predictive Modeling and Statistical Learning, aiming to
     -   [Posit Workbench / RStudio Online Version](https://rstudio.stat.duke.edu)
     -   [RStudio on Your Laptop](https://posit.co/download/rstudio-desktop/)
 
-This version refines the phrasing and capitalizes key terms for consistency and clarity. - [Lab 01](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2001) - [Lab 02](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2002)
+- [Lab 01](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2001) 
+- [Lab 02](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2002)
 
 ### Install
 
