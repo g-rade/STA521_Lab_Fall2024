@@ -3,8 +3,8 @@
 ## Authors
 
 -   Professor: [Dr. David Banks](https://www2.stat.duke.edu/~banks/)
--   TA: [Patrick Woitschig](patrick.woitschig@duke.edu)
--   TA: [Justin Kao](justinkao.44@duke.edu)
+-   TA: [Patrick Woitschig](https://scholars.duke.edu/person/patrick.woitschig)
+-   TA: [Justin Kao](mailto:justinkao.44@duke.edu)
 
 
 ## Schedule
@@ -27,7 +27,7 @@ This course is STA 521 Predictive Analysis/Inference, aiming to help you broadly
 -   [Lab 01](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2001)
 -   [Lab 02](https://github.com/justinkao44/STA521_Lab_Fall2024/tree/main/Lab%2002)
 
-### Install {#install}
+### Install
 
 Use git to clone this repository into your computer.
 
