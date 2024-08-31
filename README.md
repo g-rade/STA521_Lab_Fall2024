@@ -1,5 +1,9 @@
 # STA521 Lab Fall 2024
 
+<br>
+<img align="right" height = "150" src ="https://github.com/justinkao44/STA521_Lab_Fall2024/blob/main/stat-sci-updated.png">
+<be>
+
 ## Authors
 
 -   Professor: [Dr. David Banks](https://www2.stat.duke.edu/~banks/)
