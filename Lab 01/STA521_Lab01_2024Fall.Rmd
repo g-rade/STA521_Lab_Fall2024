@@ -22,6 +22,7 @@ font-style: italic;
 
 ```{r}
 rm(list=ls()) # Clear the environment
+options(scipen = 20)
 data <- read.csv("Student_Performance.csv", header = TRUE)
 ```
 
@@ -32,6 +33,7 @@ library(dplyr) # For data manipulation
 library(ggplot2) # For data visualization
 library(readr) # For reading CSV files 
 library(ggcorrplot) #For checking Correlation Coefficient
+library(lmtest)
 ```
 
 ### 3. Basic EDA
@@ -158,7 +160,6 @@ ggcorrplot(corr_matrix, method = "circle", lab = TRUE) +
 ```
 
 
-
 ### 5. Multiple Linear Regression Model  
 
 ```{r}
@@ -170,3 +171,41 @@ model <- lm(Performance.Index ~ Hours.Studied + Previous.Scores + Sleep.Hours +
 ```{r}
 summary(model)
 ```
+```{r}
+plot(model, which = 1)  # Residuals vs Fitted
+plot(model, which = 2)  # Normal Q-Q plot
+```
+
+```{r}
+dwtest(model)
+```
+
+### 5. Model Fit Analysis
+
+::: {.alert .alert-info}
+<strong>Info!</strong> Based on the summary output of the Multiple Linear Regression (MLR) model, here is a brief introductory assessment of how well the model fits the data. The model appears to work well, as the dataset was purposefully designed to enhance explanatory power and help you build confidence in using R for regression analysis.
+:::
+
+
+#### 1. R-squared and Adjusted R-squared
+- **Multiple R-squared: 0.9888**: This indicates that approximately 98.88% of the variance in the `Performance.Index` is explained by the model. This is a very high R-squared value, suggesting a good fit.
+- **Adjusted R-squared: 0.9887**: The Adjusted R-squared is slightly lower but still very close to 1, indicating that the model is still a good fit even after adjusting for the number of predictors.
+
+#### 2. F-statistic and p-value
+- **F-statistic: 1.757e+05 on 5 and 9994 DF, p-value < 0.00000000000000022**: The F-statistic is very large, and the p-value is extremely small, indicating that the overall regression model is highly significant. This means that at least one of the predictors is significantly related to the `Performance.Index`.
+
+#### 3. Coefficients and Significance
+- All the predictors in the model have extremely low p-values (all < 0.001), indicating that each predictor is statistically significant in predicting `Performance.Index`.
+- The estimates for each coefficient are substantial, suggesting that the predictors have a strong influence on `Performance.Index`.
+
+#### 4. Residual Standard Error (RSE)
+- **Residual standard error: 2.038**: This value gives an idea of the average distance that the observed values fall from the regression line. Given the scale of the data, this value seems reasonably small, indicating that the model's predictions are quite accurate.
+
+#### 5. Residuals
+- The distribution of residuals (Min, 1Q, Median, 3Q, Max) suggests that the residuals are fairly symmetric around zero, which is a good sign. However, a more detailed residual analysis (e.g., residual plots) would be needed to confirm that there are no patterns in the residuals that violate the assumptions of linear regression.
+
+#### Conclusion
+The model appears to fit the data very well, as indicated by the high R-squared values, significant predictors, and low residual standard error. However, it’s important to perform further diagnostic checks, such as examining residual plots, checking for multicollinearity (using VIF), and ensuring the assumptions of linear regression are met (e.g., homoscedasticity, normality of residuals, independence).
+
+If all these checks are satisfied, you can be confident that the model is well-fitted and reliable for making predictions.
+
