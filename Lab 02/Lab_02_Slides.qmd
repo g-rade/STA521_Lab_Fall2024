@@ -10,6 +10,9 @@ format:
     slide-number: true
     self-contained: true
     auto-stretch: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Course Tools {.center}
@@ -22,30 +25,110 @@ format:
 [Access RStudio Online Here!](https://rstudio.stat.duke.edu)
 :::
 
--   **Browser-based**: Access RStudio right from your browser—no setup headaches.
--   **Duke VPN or Campus Connection**: Seamlessly connect from anywhere using Duke VPN (Cisco) or while on campus.
--   **Cloud-Powered**: Harness the power of online resources—save your computer's CPU and GPU for other tasks.
--   **Hassle-Free Setup**: No need to run `install.packages`—everything is pre-installed and ready to go!
+-   **Browser-based**: Access RStudio right from your browser—no setup
+    headaches.
+-   **Duke VPN or Campus Connection**: Seamlessly connect from anywhere
+    using Duke VPN (Cisco) or while on campus.
+-   **Cloud-Powered**: Harness the power of online resources—save your
+    computer's CPU and GPU for other tasks.
+-   **Hassle-Free Setup**: No need to run `install.packages`—everything
+    is pre-installed and ready to go!
 
-[Source: Dr. Colin Rundel STA 523](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://sta523-fa23.github.io/slides/Lec01.pdf)
+[Source: Dr. Colin Rundel STA
+523](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://sta523-fa23.github.io/slides/Lec01.pdf)
+
+# Exam Review
+
+## Exam 1, Question 2
+
+::: {style="font-size: 70%;"}
+You want to predict how long someone lives from the number of hours of
+exercise they do in a week. From a sample of 50 people, you estimate the
+intercept as 90 and the slope as $-2$. The coefficient of determination
+is 0.6, the sd of the residuals is 9, and the mean number of hours spent
+exercising is 8 with an sd of 4.
+
+</br>
+
+::: fragment
+[Method 1]{style="color:red;"} The slope is negative, so it is the
+negative of the square root of the coefficient of determination. Hence,
+$\hat{y} = 90 -2x$ then $r = -\sqrt{0.6} = -0.77$
+:::
+:::
+
+## Exam 1, Question 2
+
+::: {style="font-size: 40%;"}
+::: fragment
+[Method 2]{style="color:red;"} This part attempts to calculate (r) using the formula for the correlation coefficient from regression parameters.
+
+1.  **Estimation of RSS (Residual Sum of Squares):**This calculates the RSS using the formula for the estimate of
+variance of the residuals ($\hat{\sigma}^2 = 9^2$), multiplying by the
+degrees of freedom ($n-2$). This is standard for a linear regression
+model with 2 parameters (intercept and slope).
+
+  $$
+   \sum\left(y_i-\hat{y}_i\right)^2 = 9^2 \cdot (n-2) = 9^2 \cdot 48
+   $$ 
+
+2.  **Reformulation of (R\^2):**
+
+    $$
+    r^2 = 0.6 = 1- \frac{\text{RSS}}{\text{TSS}}=  1 - \frac{\sum\left(y_i-\hat{y}_i\right)^2}{\sum\left(y_i-\bar{y}\right)^2} = 1 - \frac{9^2 \times 48}{\sum\left(y_i-\bar{y}\right)^2}
+    $$ Hence,
+
+    $$
+    \sum\left(y_i-\bar{y}\right)^2 = \frac{9^2 \times 48}{0.4}
+    $$ Here, we are calculating the TSS ($SS_y$) based on the formula
+    for (R\^2) rearranged to extract (SS_y). The denominator 0.4 comes
+    from rearranging (R\^2 = 0.6) into (1 - R\^2).
+
+3.  **Estimation of (SS_x) (Total Sum of Squares of (x)):**
+
+    $$
+    \sqrt{\frac{SS_x}{n-1}} = 4 \Rightarrow SS_{xx} = 4^2 \cdot 49
+    $$ Here, you're estimating the total sum of squares for (x) based on
+    the sample variance formula, where 4 is the standard deviation of
+    (x).
+
+4.  **Calculation of (r):**
+
+    $$
+    r = \frac{SS_{xy}}{\sqrt{SS_x SS_y}} = -2 \sqrt{\frac{SS_x}{SS_y}} = -2 \sqrt{\frac{4^2 \cdot 49}{9^2 \cdot 48 / 0.4}} \approx -0.568
+    $$ 
+:::
+:::
 
 # Slides Review
 
 ## Curse of Dimensionality Idea
 
-In the context of data analysis and machine learning, dimensions refer to the features or attributes of a dataset. For instance, if we consider the `Ozone` dataset, [which will be used in today’s lab]{style="color:red;"}, the dimensions include variables such as wind speed, temperature, humidity, pressure height, and ozone levels. Each of these features adds a new dimension to the dataset, increasing the complexity of the analysis as more variables are included, much like adding more characteristics in other datasets.
+In the context of data analysis and machine learning, dimensions refer
+to the features or attributes of a dataset. For instance, if we consider
+the `Ozone` dataset, [which will be used in today’s
+lab]{style="color:red;"}, the dimensions include variables such as wind
+speed, temperature, humidity, pressure height, and ozone levels. Each of
+these features adds a new dimension to the dataset, increasing the
+complexity of the analysis as more variables are included, much like
+adding more characteristics in other datasets.
 
 ## Curse of Dimensionality: Regression Insights {.smaller}
 
 -   Formula Progression
 
-**1 Variable**: $\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \epsilon$
+**1 Variable**:
+$\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \epsilon$
 
-**2 Variables**: $\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \beta_2 (\text{Humidity}) + \epsilon$
+**2 Variables**:
+$\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \beta_2 (\text{Humidity}) + \epsilon$
 
-**3 Variables**: $\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \beta_2 (\text{Humidity}) + \beta_3 (\text{Temperature}) + \epsilon$
+**3 Variables**:
+$\text{Ozone Level} = \beta_0 + \beta_1 (\text{Wind Speed}) + \beta_2 (\text{Humidity}) + \beta_3 (\text{Temperature}) + \epsilon$
 
--   Explanation: With each added variable, we introduce a new dimension. To capture relationships in this higher-dimensional space, we need more data points (rows) to adequately model these features.
+-   Explanation: With each added variable, we introduce a new dimension.
+    To capture relationships in this higher-dimensional space, we need
+    more data points (rows) to adequately model these features.
 
 ```{r}
 # Load necessary libraries
@@ -92,7 +175,9 @@ p2 <- ggplot(points_2d, aes(x = x, y = y)) +
 
 ## Curse of Dimensionality 1D Space
 
--   Imagine you start with a line [(1D)]{style="color:red;"}. You only need a few points to cover the length of the line, since it's just a straight path.
+-   Imagine you start with a line [(1D)]{style="color:red;"}. You only
+    need a few points to cover the length of the line, since it's just a
+    straight path.
 
 ```{r}
 # Display 1D plot
@@ -101,7 +186,9 @@ print(p1)
 
 ## Curse of Dimensionality 2D Space
 
--   Now, think about a square [(2D)]{style="color:red;"}. Instead of just covering a line, you now need to fill up an entire area. You need more points to cover both the width and height of the square.
+-   Now, think about a square [(2D)]{style="color:red;"}. Instead of
+    just covering a line, you now need to fill up an entire area. You
+    need more points to cover both the width and height of the square.
 
 ```{r}
 # Display 2D plot
@@ -110,7 +197,9 @@ print(p2)
 
 ## Curse of Dimensionality 3D Space
 
--   Next, picture a cube [(3D)]{style="color:red;"}. To fill the volume of the cube, you need even more points because you’re now working in three directions: length, width, and height.
+-   Next, picture a cube [(3D)]{style="color:red;"}. To fill the volume
+    of the cube, you need even more points because you’re now working in
+    three directions: length, width, and height.
 
 ```{r}
 # Plot 3D using scatterplot3d
@@ -126,56 +215,92 @@ scatterplot3d(points_3d$x, points_3d$y, points_3d$z,
 
 ::: {style="font-size: 60%;"}
 ::: {.fragment .fade-in}
--   Data sparsity: Imagine trying to fill a large room with a handful of marbles—they’d be scattered far apart. In high-dimensional data, the same thing happens: data points are far apart, making it harder for models to find meaningful patterns.
+-   Data sparsity: Imagine trying to fill a large room with a handful of
+    marbles—they’d be scattered far apart. In high-dimensional data, the
+    same thing happens: data points are far apart, making it harder for
+    models to find meaningful patterns.
 :::
 
 ::: {.fragment .fade-in}
--   Increased computation: More dimensions mean more computational resources and time to process the data.
+-   Increased computation: More dimensions mean more computational
+    resources and time to process the data.
 :::
 
 ::: {.fragment .fade-in}
--   Overfitting-learning the wrong thing: When there’s too much data complexity, models start "memorizing" noise or irrelevant details instead of learning the important patterns. This makes the model less effective at predicting new data correctly.
+-   Overfitting-learning the wrong thing: When there’s too much data
+    complexity, models start "memorizing" noise or irrelevant details
+    instead of learning the important patterns. This makes the model
+    less effective at predicting new data correctly.
 :::
 
 ::: {.fragment .fade-in}
--   Distances lose meaning: In a simple space, the distance between points matters. But in many dimensions, all points start feeling equally far apart, making it hard to distinguish which data points are truly similar.
+-   Distances lose meaning: In a simple space, the distance between
+    points matters. But in many dimensions, all points start feeling
+    equally far apart, making it hard to distinguish which data points
+    are truly similar.
 :::
 
 ::: {.fragment .fade-in}
--   Algorithms don’t perform as well: Algorithms that rely on distances (like k-nearest neighbors) become less reliable in high-dimensional spaces. They struggle because the concept of “closeness” gets diluted.
+-   Algorithms don’t perform as well: Algorithms that rely on distances
+    (like k-nearest neighbors) become less reliable in high-dimensional
+    spaces. They struggle because the concept of “closeness” gets
+    diluted.
 :::
 :::
 
 ## Takeway
 
-As you go up to even more dimensions (4D, 5D, etc.), the space grows exponentially larger, and you need exponentially more points to fill it. But no matter how many points you add, they get spread out thinner and thinner, making it harder to find patterns or meaningful relationships in the data.
+As you go up to even more dimensions (4D, 5D, etc.), the space grows
+exponentially larger, and you need exponentially more points to fill it.
+But no matter how many points you add, they get spread out thinner and
+thinner, making it harder to find patterns or meaningful relationships
+in the data.
 
 <br/>
 
-So, in higher dimensions, it becomes extremely difficult to "fill" the space with enough data, and the data becomes very sparse. This is why analyzing data in many dimensions gets much harder.
+So, in higher dimensions, it becomes extremely difficult to "fill" the
+space with enough data, and the data becomes very sparse. This is why
+analyzing data in many dimensions gets much harder.
 
 # 🚀 Let’s Dive In and Get Started! 🌟
 
 ## Ozone Data: The Classic Air Quality Challenge! 😀🤟 {.smaller}
 
-Locate the `Ozone` data, which records Los Angeles ozone pollution levels in 1976. Follow the instructions below and submit a PDF of your results to the Canvas ![Canvas](Canvas-Icon.png){width="6%"}. Be sure to include relevant figures.
+Locate the `Ozone` data, which records Los Angeles ozone pollution
+levels in 1976. Follow the instructions below and submit a PDF of your
+results to the Canvas ![Canvas](Canvas-Icon.png){width="6%"}. Be sure to
+include relevant figures.
 
 ::: callout-note
-This is a very open-ended project, meaning every response you provide is valuable. The optimal approach is to extract as much information as possible. This ability will give you insight into ad-hoc problem-solving skills, which are essential when tackling real-world problems as a Data Scientist, Engineer, or Analyst.
+This is a very open-ended project, meaning every response you provide is
+valuable. The optimal approach is to extract as much information as
+possible. This ability will give you insight into ad-hoc problem-solving
+skills, which are essential when tackling real-world problems as a Data
+Scientist, Engineer, or Analyst.
 :::
 
-## Tasks 🤙🎉 
-
+## Tasks 🤙🎉
 
 ::: {style="font-size: 65%;"}
-- The objective is to **predict the daily maximum one-hour average ozone reading** (`V4` or `Ozone`).
-- **Perform Exploratory Data Analysis (EDA)**: Create and visualize various plots for the data variables to gain insights into the distribution, relationships, and potential issues.
-- **Data Wrangling**: Review the dataset and decide which variables to remove. For instance, consider **removing the variables `Day_of_Month` and `Day_of_Week`**. Additionally, **convert the `Month` variable into a numerical format** if necessary for analysis.
-- **Model Comparison**: Create and evaluate four models:
-  1. **Full model**: Fit a **linear model** to the data.
-  2. **GLM with Gaussian family**: Fit a **Generalized Linear Model (GLM)** using the **Gaussian family**.
-  3. **GLM with Gamma family**: Fit a **Generalized Linear Model (GLM)** using the **Gamma family**.
-  4. **Final model**: Select the final model based on the results, and provide **justifications** for why this model was chosen over the others.
+-   The objective is to **predict the daily maximum one-hour average
+    ozone reading** (`V4` or `Ozone`).
+-   **Perform Exploratory Data Analysis (EDA)**: Create and visualize
+    various plots for the data variables to gain insights into the
+    distribution, relationships, and potential issues.
+-   **Data Wrangling**: Review the dataset and decide which variables to
+    remove. For instance, consider **removing the variables
+    `Day_of_Month` and `Day_of_Week`**. Additionally, **convert the
+    `Month` variable into a numerical format** if necessary for
+    analysis.
+-   **Model Comparison**: Create and evaluate four models:
+    1.  **Full model**: Fit a **linear model** to the data.
+    2.  **GLM with Gaussian family**: Fit a **Generalized Linear Model
+        (GLM)** using the **Gaussian family**.
+    3.  **GLM with Gamma family**: Fit a **Generalized Linear Model
+        (GLM)** using the **Gamma family**.
+    4.  **Final model**: Select the final model based on the results,
+        and provide **justifications** for why this model was chosen
+        over the others.
 :::
 
 ## Load Data
@@ -197,7 +322,9 @@ This is a very open-ended project, meaning every response you provide is valuabl
 
 -   `mlbench` stands for "Machine Learning Benchmark Problems"
 
--   When you load the data, you'll notice the variables are named `V1`, `V2`, ..., `V13`, which is not very descriptive. Therefore, it's a good idea to rename the columns for clarity.
+-   When you load the data, you'll notice the variables are named `V1`,
+    `V2`, ..., `V13`, which is not very descriptive. Therefore, it's a
+    good idea to rename the columns for clarity.
 
 ## Data Wrangling {.smaller}
 
@@ -205,7 +332,10 @@ This is a very open-ended project, meaning every response you provide is valuabl
 -   Let's clean the dataset by removing rows with missing values.
 
 ::: callout-important
-While discarding data with missing values isn't always the best approach, we're opting for simplicity here. In practice, techniques like imputation could be used to fill in the gaps, preserving more of the data’s richness—though it’s a bit more complex.
+While discarding data with missing values isn't always the best
+approach, we're opting for simplicity here. In practice, techniques like
+imputation could be used to fill in the gaps, preserving more of the
+data’s richness—though it’s a bit more complex.
 :::
 
 ``` r
@@ -225,7 +355,9 @@ names(Ozone) <- c("Month", "Day_of_Month", "Day_of_Week", "Ozone",
 :::
 
 ::: {.fragment .fade-in}
--   Use `str()` to check the data structure, ensuring numerical variables are correctly formatted and categorical variables are properly defined.
+-   Use `str()` to check the data structure, ensuring numerical
+    variables are correctly formatted and categorical variables are
+    properly defined.
 
 ``` r
 str(Ozone)
@@ -249,20 +381,25 @@ str(Ozone)
 12. **Inversion Base Temperature** (°F) at LAX\
 13. **Visibility** (miles) measured at LAX
 
-[Source: R Documentation `Ozone {mlbench}`](https://search.r-project.org/CRAN/refmans/mlbench/html/Ozone.html)
+[Source: R Documentation
+`Ozone {mlbench}`](https://search.r-project.org/CRAN/refmans/mlbench/html/Ozone.html)
 :::
 
 ## Why Not a Normal Distribution 1.0? {.smaller}
 
-The histogram clearly demonstrates that the assumption of normality no longer holds. The distribution of the data deviates significantly from what would be expected under a normal distribution, showing potential skewness or heavy tails. This visual evidence suggests that applying methods reliant on normality assumptions may lead to inaccurate results.
+The histogram clearly demonstrates that the assumption of normality no
+longer holds. The distribution of the data deviates significantly from
+what would be expected under a normal distribution, showing potential
+skewness or heavy tails. This visual evidence suggests that applying
+methods reliant on normality assumptions may lead to inaccurate results.
 
 ::: fragment
-[The histogram appears more consistent with a gamma distribution.]{style="color:red;"}
+[The histogram appears more consistent with a gamma
+distribution.]{style="color:red;"}
 :::
 
 ```{r}
 data("Ozone", package = "mlbench")
-View(Ozone)
 names(Ozone) <- c("Month", "Day_of_Month", "Day_of_Week", "Ozone", 
                         "Pressure", "Wind", "Humidity", "Temp1", "Temp2", 
                         "Inversion_Height", "Pressure_Gradient", 
@@ -285,66 +422,76 @@ If we fit to the full linear model
 lm_model <- lm(Ozone ~., data = Ozone)
 ```
 
-
 ```{r}
 lm_model <- lm(Ozone ~., data = Ozone)
 plot(lm_model, which = 1)
 ```
 
-
-
 ## Why Not a Normal Distribution 2.1? {.smaller}
 
 ::: {.fragment .fade-in}
--   **Residual Spread**: The residuals should be evenly spread around the horizontal line (residuals = 0) without any distinct pattern. In the plot, the residuals seem to form a U-shaped pattern, meaning that the residuals are not random, but rather show a pattern. This pattern suggests that our model might be [`underfitting`]{style="color:red;"}, as there might be a non-linear relationship in the data that the model doesn't account for.
+-   **Residual Spread**: The residuals should be evenly spread around
+    the horizontal line (residuals = 0) without any distinct pattern. In
+    the plot, the residuals seem to form a U-shaped pattern, meaning
+    that the residuals are not random, but rather show a pattern. This
+    pattern suggests that our model might be
+    [`underfitting`]{style="color:red;"}, as there might be a non-linear
+    relationship in the data that the model doesn't account for.
 :::
 
 ::: {.fragment .fade-in}
--   **Heteroscedasticity**: If the spread of residuals increases or decreases with fitted values, it would indicate heteroscedasticity (i.e., non-constant variance). In this plot, the spread seems fairly consistent across fitted values, meaning there is no strong indication of heteroscedasticity, though some slight increase in variance can be seen for higher fitted values.
+-   **Heteroscedasticity**: If the spread of residuals increases or
+    decreases with fitted values, it would indicate heteroscedasticity
+    (i.e., non-constant variance). In this plot, the spread seems fairly
+    consistent across fitted values, meaning there is no strong
+    indication of heteroscedasticity, though some slight increase in
+    variance can be seen for higher fitted values.
 :::
 
 ::: {.fragment .fade-in}
--   **Outliers**: The numbers next to some points represent influential or outlying observations. These points are distant from the bulk of residuals and could have a disproportionate effect on the model fit. You should investigate these points further to ensure they are not having too much influence on your model.
+-   **Outliers**: The numbers next to some points represent influential
+    or outlying observations. These points are distant from the bulk of
+    residuals and could have a disproportionate effect on the model fit.
+    You should investigate these points further to ensure they are not
+    having too much influence on your model.
 :::
 
 ## Generalied Linear Regression(GLM)
 
 ::: {style="font-size: 60%;"}
-| **Aspect**                | **Linear Model (LM)**                                                                              | **Generalized Linear Model (GLM)**                                                                                                                              |
-|-----------------|--------------------------|------------------------------|
+| **Aspect**                | **Linear Model (LM)**                                                                           | **Generalized Linear Model (GLM)**                                                                                                                              |
+|------------------|-------------------------|-----------------------------|
 | **Normality Assumption**  | Assumes normal distribution for the response variable and errors $\epsilon \sim N(0, \sigma^2)$ | Does not assume normality; allows for non-normal distributions such as binomial, Poisson, etc.                                                                  |
-| **Error Distribution**    | Errors follow a normal distribution $N(0, \sigma^2)$                                               | Errors can follow distributions from the exponential family (e.g., binomial, Poisson, gamma)                                                                    |
-| **Response Distribution** | The response variable is assumed to be normally distributed                                        | The response variable can follow different distributions, depending on the link function and data type (e.g., binomial for binary data, Poisson for count data) |
-| **Variance Structure**    | Constant variance $\sigma^2$ across all observations                                            | Variance is a function of the mean (e.g., $\mu(1 - \mu$ ) for binomial, $\mu$ for Poisson)                                                                   |
-| **Use Case**              | Best suited for continuous, normally distributed data                                              | Suitable for a wide range of data types (binary, count, continuous with non-normal errors)                                                                      |
+| **Error Distribution**    | Errors follow a normal distribution $N(0, \sigma^2)$                                            | Errors can follow distributions from the exponential family (e.g., binomial, Poisson, gamma)                                                                    |
+| **Response Distribution** | The response variable is assumed to be normally distributed                                     | The response variable can follow different distributions, depending on the link function and data type (e.g., binomial for binary data, Poisson for count data) |
+| **Variance Structure**    | Constant variance $\sigma^2$ across all observations                                            | Variance is a function of the mean (e.g., $\mu(1 - \mu$ ) for binomial, $\mu$ for Poisson)                                                                      |
+| **Use Case**              | Best suited for continuous, normally distributed data                                           | Suitable for a wide range of data types (binary, count, continuous with non-normal errors)                                                                      |
 :::
 
 ## GLM Math setup
 
 ::: {style="font-size: 50%;"}
-* **Linear Model (LM)**:
-$$
-Y = X\beta + \epsilon
-$$
-Where:
-  + $Y$ is the response variable.
-  + $X$ is the matrix of predictor variables.
-  + $\beta$ is the vector of regression coefficients.
-  + $\epsilon$ is the error term, assumed to follow $\epsilon \sim N(0, \sigma^2)$.
-
-* **Generalized Linear Model (GLM)**:
-$$
-g(\mu) = X\beta
-$$
-Where:
-  + $g(\mu)$ is the **link function** that relates the expected value of the response variable $\mu = \mathbb{E}[Y]$ to the linear predictor $X\beta$.
-  + $Y$ follows a distribution from the exponential family (e.g., binomial, Poisson, Gamma).
-  + $X$ is the matrix of predictor variables.
-  + $\beta$ is the vector of regression coefficients.
-
+-   **Linear Model (LM)**: $$
+    Y = X\beta + \epsilon
+    $$ Where:
+    -   $Y$ is the response variable.
+    -   $X$ is the matrix of predictor variables.
+    -   $\beta$ is the vector of regression coefficients.
+    -   $\epsilon$ is the error term, assumed to follow
+        $\epsilon \sim N(0, \sigma^2)$.
+-   **Generalized Linear Model (GLM)**: $$
+    g(\mu) = X\beta
+    $$ Where:
+    -   $g(\mu)$ is the **link function** that relates the expected
+        value of the response variable $\mu = \mathbb{E}[Y]$ to the
+        linear predictor $X\beta$.
+    -   $Y$ follows a distribution from the exponential family (e.g.,
+        binomial, Poisson, Gamma).
+    -   $X$ is the matrix of predictor variables.
+    -   $\beta$ is the vector of regression coefficients.
 :::
 
-## GLM Model 
+## GLM Model
 
 ``` {.r code-line-numbers="2|5|8"}
 # Fit the linear model (lm)
@@ -367,47 +514,48 @@ glm_model <- glm(Ozone ~ ., data = Ozone, family = Gamma(link = "log"))
 # Compare AIC
 AIC(lm_model, glm_model)
 ```
+
 ::: {style="font-size: 60%;"}
-::: {.fragment}
-- The AIC for a given model is calculated as:
+::: fragment
+-   The AIC for a given model is calculated as:
 
-$$\text{AIC} = 2k - 2 \ln(L)$$
-Where:
+$$\text{AIC} = 2k - 2 \ln(L)$$ Where:
 
-  + **$k$** is the number of estimated parameters in the model.
-  + **$L$** is the maximum likelihood of the model, representing how well the model fits the data.
-  + **$\ln(L)$** is the log-likelihood of the model.
+-   $k$ is the number of estimated parameters in the model.
+-   $L$ is the maximum likelihood of the model, representing how well
+    the model fits the data.
+-   $\ln(L)$ is the log-likelihood of the model.
 :::
 :::
-
-
 
 ## Common examples: {.smaller}
 
-| Variable Type                              | Common Dist.                     | Common Link  |
-|--------------------------------------------|----------------------------------|--------------|
-| Real-valued with a bell-shaped dist.       | Normal (Gaussian)                | Identity     |
-| Binary (0/1)                               | Binomial                         | Logit        |
-| Count                                      | Poisson                          | Log          |
-| +ve, continuous with right skew            | Gamma / inverse Gaussian         | Log          |
-| +ve, continuous with a large mass at zero  | Tweedie                          | Log          |
+| Variable Type                             | Common Dist.             | Common Link |
+|-------------------------------|-----------------------|------------------|
+| Real-valued with a bell-shaped dist.      | Normal (Gaussian)        | Identity    |
+| Binary (0/1)                              | Binomial                 | Logit       |
+| Count                                     | Poisson                  | Log         |
+| +ve, continuous with right skew           | Gamma / inverse Gaussian | Log         |
+| +ve, continuous with a large mass at zero | Tweedie                  | Log         |
 
-(Note: For gamma and inverse Gaussian, the target variable has to be strictly positive. Values of zero are not allowed.)
+(Note: For gamma and inverse Gaussian, the target variable has to be
+strictly positive. Values of zero are not allowed.)
 
 ## Stepwise Selection - Idea
 
 ::: {style="font-size: 80%;"}
-- **Selection process**: Sequentially add/drop features, one at a time, until there is no improvement in the selection criterion.
+-   **Selection process**: Sequentially add/drop features, one at a
+    time, until there is no improvement in the selection criterion.
 
-| Area                                      | Backward       | Forward             |
-|-------------------------------------------|----------------|---------------------|
-| 1. Which model to start with?             | Full model     | Intercept-only model|
-| 2. Add or drop variables?                 | Drop           | Add                 |
-| 3. Which method tends to produce a simpler model? | Forward selection | Forward selection  |
+| Area                                               | Backward          | Forward              |
+|------------------------------------|------------------|------------------|
+| 1\. Which model to start with?                     | Full model        | Intercept-only model |
+| 2\. Add or drop variables?                         | Drop              | Add                  |
+| 3\. Which method tends to produce a simpler model? | Forward selection | Forward selection    |
 
+-   Code
 
-- Code
-```r
+``` r
 # Perform backward stepwise selection
 backward_model <- step(lm_model, direction = "backward")
 # Perform backward stepwise selection
@@ -415,39 +563,36 @@ backward_model <- step(glm_model, direction = "backward")
 ```
 :::
 
-
 ## Selection criteria based on penalized likelihood
 
 ::: {style="font-size: 80%;"}
-  - **Idea**: Prevent overfitting by requiring an included/retained feature to improve model fit by at least a specified amount.
+-   **Idea**: Prevent overfitting by requiring an included/retained
+    feature to improve model fit by at least a specified amount.
 
-  - **Two common choices**:
+-   **Two common choices**:
 
-    | Criterion | Definition                              | Penalty per Parameter |
-    |-----------|-----------------------------------------|-----------------------|
-    | AIC       | $-2l + 2(p + 1)$                        | 2                     |
-    | BIC       | $-2l + \ln(n_{tr})(p + 1)$              | $\ln(n_{tr})$         |
+    | Criterion | Definition                 | Penalty per Parameter |
+    |-----------|----------------------------|-----------------------|
+    | AIC       | $-2l + 2(p + 1)$           | 2                     |
+    | BIC       | $-2l + \ln(n_{tr})(p + 1)$ | $\ln(n_{tr})$         |
 
-  - **AIC vs. BIC**:
-    - For both, the lower the value, the better.
-    - BIC is more conservative and results in simpler models.
+-   **AIC vs. BIC**:
+
+    -   For both, the lower the value, the better.
+    -   BIC is more conservative and results in simpler models.
 :::
-
-
-
-
-
-
-
 
 ## Source {.smaller}
 
--   Leo Breiman, Department of Statistics, UC Berkeley. Data used in Leo Breiman and Jerome H. Friedman (1985), Estimating optimal transformations for multiple regression and correlation, JASA, 80, pp. 580-598.
+-   Leo Breiman, Department of Statistics, UC Berkeley. Data used in Leo
+    Breiman and Jerome H. Friedman (1985), Estimating optimal
+    transformations for multiple regression and correlation, JASA, 80,
+    pp. 580-598.
 -   Dr. Colin rundel STA 523 Slides
 -   Dr. David Banks STA 521 Slides
 -   Dr. Ambrose Lo ACTEX
 
-
 # Thank you! {.smaller}
-
-#### Remember to submit your work on Canvas. Have a great rest of your day!
+:::{.r-stack}
+Remember to submit your work on Canvas. Have a great rest of your day!
+:::
