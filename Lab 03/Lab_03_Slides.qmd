@@ -61,16 +61,18 @@ $\hat{y} = 90 -2x$ then $r = -\sqrt{0.6} = -0.77$
 
 ::: {style="font-size: 40%;"}
 ::: fragment
-[Method 2]{style="color:red;"} This part attempts to calculate (r) using the formula for the correlation coefficient from regression parameters.
+[Method 2]{style="color:red;"} This part attempts to calculate (r) using
+the formula for the correlation coefficient from regression parameters.
 
-1.  **Estimation of RSS (Residual Sum of Squares):**This calculates the RSS using the formula for the estimate of
-variance of the residuals ($\hat{\sigma}^2 = 9^2$), multiplying by the
-degrees of freedom ($n-2$). This is standard for a linear regression
-model with 2 parameters (intercept and slope).
+1.  **Estimation of RSS (Residual Sum of Squares):**This calculates the
+    RSS using the formula for the estimate of variance of the residuals
+    ($\hat{\sigma}^2 = 9^2$), multiplying by the degrees of freedom
+    ($n-2$). This is standard for a linear regression model with 2
+    parameters (intercept and slope).
 
-  $$
+$$
    \sum\left(y_i-\hat{y}_i\right)^2 = 9^2 \cdot (n-2) = 9^2 \cdot 48
-   $$ 
+   $$
 
 2.  **Reformulation of (R\^2):**
 
@@ -96,7 +98,7 @@ model with 2 parameters (intercept and slope).
 
     $$
     r = \frac{SS_{xy}}{\sqrt{SS_x SS_y}} = -2 \sqrt{\frac{SS_x}{SS_y}} = -2 \sqrt{\frac{4^2 \cdot 49}{9^2 \cdot 48 / 0.4}} \approx -0.568
-    $$ 
+    $$
 :::
 :::
 
@@ -460,7 +462,7 @@ plot(lm_model, which = 1)
 
 ::: {style="font-size: 60%;"}
 | **Aspect**                | **Linear Model (LM)**                                                                           | **Generalized Linear Model (GLM)**                                                                                                                              |
-|------------------|-------------------------|-----------------------------|
+|-------------------|-------------------------|-----------------------------|
 | **Normality Assumption**  | Assumes normal distribution for the response variable and errors $\epsilon \sim N(0, \sigma^2)$ | Does not assume normality; allows for non-normal distributions such as binomial, Poisson, etc.                                                                  |
 | **Error Distribution**    | Errors follow a normal distribution $N(0, \sigma^2)$                                            | Errors can follow distributions from the exponential family (e.g., binomial, Poisson, gamma)                                                                    |
 | **Response Distribution** | The response variable is assumed to be normally distributed                                     | The response variable can follow different distributions, depending on the link function and data type (e.g., binomial for binary data, Poisson for count data) |
@@ -531,7 +533,7 @@ $$\text{AIC} = 2k - 2 \ln(L)$$ Where:
 ## Common examples: {.smaller}
 
 | Variable Type                             | Common Dist.             | Common Link |
-|-------------------------------|-----------------------|------------------|
+|-------------------------------|-----------------------|-------------------|
 | Real-valued with a bell-shaped dist.      | Normal (Gaussian)        | Identity    |
 | Binary (0/1)                              | Binomial                 | Logit       |
 | Count                                     | Poisson                  | Log         |
@@ -548,7 +550,7 @@ strictly positive. Values of zero are not allowed.)
     time, until there is no improvement in the selection criterion.
 
 | Area                                               | Backward          | Forward              |
-|------------------------------------|------------------|------------------|
+|-----------------------------------|------------------|------------------|
 | 1\. Which model to start with?                     | Full model        | Intercept-only model |
 | 2\. Add or drop variables?                         | Drop              | Add                  |
 | 3\. Which method tends to produce a simpler model? | Forward selection | Forward selection    |
@@ -590,9 +592,11 @@ backward_model <- step(glm_model, direction = "backward")
     pp. 580-598.
 -   Dr. Colin rundel STA 523 Slides
 -   Dr. David Banks STA 521 Slides
--   Dr. Ambrose Lo ACTEX
+-   Dr. Ambrose Lo [ACTEX](https://sites.google.com/site/ambroseloyp/)
+-   An Introduction to Statistical Learning(ISLR)
 
 # Thank you! {.smaller}
-:::{.r-stack}
+
+::: r-stack
 Remember to submit your work on Canvas. Have a great rest of your day!
 :::
