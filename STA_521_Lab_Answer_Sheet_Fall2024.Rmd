@@ -1,0 +1,316 @@
+---
+title: "STA521_Lab03_2024Fall"
+author: "Justin Kao"
+output: pdf_document
+date: "2024-09-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+```
+
+## Obtain the data and manipulate it into the appropriate format.
+
+### Load Data
+
+```{r}
+data("Ozone", package = "mlbench")
+```
+
+### Data Wrangling
+
+```{r}
+names(Ozone) <- c("Month", "Day_of_Month", "Day_of_Week", "Ozone", 
+                        "Pressure", "Wind", "Humidity", "Temp1", "Temp2", 
+                        "Inversion_Height", "Pressure_Gradient", 
+                        "Inversion_Temp", "Visibility")
+
+Ozone <- na.omit(Ozone)
+
+
+nrow(Ozone)
+Ozone$Month <- as.numeric(Ozone$Month)
+Ozone <- Ozone[, !(names(Ozone) %in% c("Day_of_Month", "Day_of_Week"))]
+str(Ozone)
+```
+
+### Basic Plots
+
+```{r}
+library(ggplot2)
+ggplot(Ozone, aes(x = Ozone)) +
+  geom_histogram(aes(y = ..density..), bins = 30, color = "black", fill = "lightblue", alpha = 0.7) +
+  geom_density(color = "red", size = 1) +
+  labs(x = "Daily Maximum One-hour Average Ozone Reading", y = "Density", title = "Histogram and Density of Ozone") +
+  theme_minimal()
+```
+
+```{r}
+library(ggcorrplot)
+corr_matrix <- cor(Ozone)
+
+ggcorrplot(corr_matrix, lab = TRUE, lab_size = 2, colors = c("blue", "white", "red"), legend.title = "Correlation")
+```
+
+## Task 1 Fit a linear model to the data.
+
+### Fit the full lm model with all variables
+
+```{r}
+full_lm <- lm(Ozone ~ ., data = Ozone)
+summary(full_lm)
+```
+
+### Assessing Multicollinearity Using Variance Inflation Factor (VIF)
+
+```{r}
+# CAR stands for Companion to Applied Regression
+library(car)
+vif_values <- vif(full_lm)
+print(vif_values)
+```
+
+### Perform backward stepwise selection
+
+```{r}
+backward_full_lm <- step(full_lm, direction = "backward")
+```
+
+### Fit the model with only significant variables
+
+```{r}
+reduced_lm <- lm(Ozone ~ Inversion_Height + Pressure + Temp2 + Month + Humidity, data = Ozone)
+summary(reduced_lm)
+```
+
+## Task 2 Fit a GLM with Gaussian Family
+
+### Fit the full GLM with Gaussian Family
+
+```{r}
+full_glm_gaussian <- glm(Ozone ~ ., family = gaussian() , data = Ozone)
+summary(full_glm_gaussian)
+```
+
+### Assessing Multicollinearity Using Variance Inflation Factor (VIF)
+
+```{r}
+vif_values <- vif(full_glm_gaussian)
+print(vif_values)
+```
+
+### Perform backward stepwise selection
+
+```{r}
+backward_full_glm_gaussian <- step(full_glm_gaussian, direction = "backward")
+```
+
+### Fit the model with only significant variables
+
+```{r}
+reduced_glm_gaussian <- glm(Ozone ~ Inversion_Height + Pressure + Temp2 + Month + Humidity, data = Ozone)
+summary(reduced_glm_gaussian)
+```
+
+## Intermediate Comaparison
+
+### Compare AIC of full_lm, full_glm_gaussian, reduced_lm. reduced_glm_gaussian
+
+```{r}
+AIC(full_lm, full_glm_gaussian, reduced_lm ,reduced_glm_gaussian)
+```
+
+## Task 3 Fit a GLM with Gamma Family
+
+### Fit the full GLM with Gamma Family
+
+```{r}
+full_glm_gamma <- glm(Ozone ~., data = Ozone)
+summary(full_glm_gamma)
+```
+
+### Assessing Multicollinearity Using Variance Inflation Factor (VIF)
+
+```{r}
+vif_values <- vif(full_glm_gamma)
+print(vif_values)
+```
+
+### Perform backward stepwise selection
+
+```{r}
+backward_full_glm_gamma <- step(full_glm_gamma, direction = "backward")
+```
+
+### Fit the model with only significant variables
+
+```{r}
+reduced_glm_gamma <- glm(Ozone ~ Inversion_Height + Pressure + Temp2 + Month + Humidity, 
+                         family = Gamma(), data = Ozone)
+summary(reduced_glm_gamma)
+```
+
+## Task 4 Log(Ozone) + GLM Gamma
+
+```{r}
+# Shift the Ozone data by adding a small constant to avoid zeros
+Ozone$log_Ozone <- log(Ozone$Ozone + 1)  
+# Plot the histogram and density of the log-transformed Ozone
+ggplot(Ozone, aes(x = log_Ozone)) +
+  geom_histogram(aes(y = ..density..), bins = 20, fill = "skyblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = "Histogram and Density of Log-transformed Ozone",
+       x = "Log of Daily Maximum One-hour Average Ozone Reading", 
+       y = "Density")
+```
+
+### Fit the full GLM with the Gamma family on the log-transformed Ozone data
+
+```{r}
+full_logozone_glm_gamma <- glm(log_Ozone ~ . - Ozone, family = Gamma(link = "inverse"), data = Ozone)
+summary(full_logozone_glm_gamma)
+```
+
+### Assessing Multicollinearity Using Variance Inflation Factor (VIF)
+
+```{r}
+vif_values <- vif(full_logozone_glm_gamma )
+print(vif_values)
+```
+
+### Perform backward stepwise selection
+
+```{r}
+backward_full_logozone_glm_gamma <- step(full_logozone_glm_gamma, direction = "backward")
+```
+
+### Fit the model with only significant variables
+
+```{r}
+reduced_logozone_glm_gamma <- glm(log_Ozone ~ Temp2 + Inversion_Height + Month + Humidity, 
+                         family = Gamma(link = "log"), data = Ozone)
+summary(reduced_logozone_glm_gamma)
+```
+
+## Task 5 Final Comaparison
+
+### Compare AIC of full_lm, full_glm_gaussian, full_glm_gamma, reduced_lm. reduced_glm_gaussian, reduced_glm_gamma
+
+```{r}
+AIC(full_lm, full_glm_gaussian, full_glm_gamma, reduced_lm ,reduced_glm_gaussian, reduced_glm_gamma, reduced_logozone_glm_gamma)
+```
+
+```{r}
+library(Metrics)
+
+# Predictions for each model
+pred_full_lm <- predict(full_lm, Ozone)
+pred_full_glm_gaussian <- predict(full_glm_gaussian, Ozone)
+pred_full_glm_gamma <- predict(full_glm_gamma, Ozone)
+pred_full_logozone_glm_gamma <- predict(full_logozone_glm_gamma, Ozone)  
+pred_reduced_lm <- predict(reduced_lm, Ozone)
+pred_reduced_glm_gaussian <- predict(reduced_glm_gaussian, Ozone)
+pred_reduced_glm_gamma <- predict(reduced_glm_gamma, Ozone)
+pred_reduced_logozone_glm_gamma <- predict(reduced_logozone_glm_gamma, Ozone)  
+
+# Actual values
+actual_values <- Ozone$Ozone
+
+# Calculate RMSE for each model
+rmse_full_lm <- rmse(actual_values, pred_full_lm)
+rmse_full_glm_gaussian <- rmse(actual_values, pred_full_glm_gaussian)
+rmse_full_glm_gamma <- rmse(actual_values, pred_full_glm_gamma)
+rmse_full_logozone_glm_gamma <- rmse(Ozone$log_Ozone, pred_full_logozone_glm_gamma)  
+
+rmse_reduced_lm <- rmse(actual_values, pred_reduced_lm)
+rmse_reduced_glm_gaussian <- rmse(actual_values, pred_reduced_glm_gaussian)
+rmse_reduced_glm_gamma <- rmse(actual_values, pred_reduced_glm_gamma)
+rmse_reduced_logozone_glm_gamma <- rmse(Ozone$log_Ozone, pred_reduced_logozone_glm_gamma) 
+
+# Compare RMSE values
+rmse_values <- data.frame(
+  Model = c("Full LM", "Full GLM Gaussian", "Full GLM Gamma", 
+            "Full LogOzone GLM Gamma",  # New full model
+            "Reduced LM", "Reduced GLM Gaussian", "Reduced GLM Gamma", 
+            "Reduced LogOzone GLM Gamma"),  # New reduced model
+  RMSE = c(rmse_full_lm, rmse_full_glm_gaussian, rmse_full_glm_gamma,
+           rmse_full_logozone_glm_gamma,  # New full model RMSE
+           rmse_reduced_lm, rmse_reduced_glm_gaussian, rmse_reduced_glm_gamma,
+           rmse_reduced_logozone_glm_gamma)  # New reduced model RMSE
+)
+
+# Display RMSE values for comparison
+print(rmse_values)
+
+```
+
+```{r}
+library(Metrics)
+
+# Predictions for each model
+pred_full_lm <- predict(full_lm, Ozone)
+pred_full_glm_gaussian <- predict(full_glm_gaussian, Ozone)
+pred_full_glm_gamma <- predict(full_glm_gamma, Ozone)
+pred_full_logozone_glm_gamma <- predict(full_logozone_glm_gamma, Ozone) 
+
+pred_reduced_lm <- predict(reduced_lm, Ozone)
+pred_reduced_glm_gaussian <- predict(reduced_glm_gaussian, Ozone)
+pred_reduced_glm_gamma <- predict(reduced_glm_gamma, Ozone)
+pred_reduced_logozone_glm_gamma <- predict(reduced_logozone_glm_gamma, Ozone) 
+
+# Actual values
+actual_values <- Ozone$Ozone
+
+# Calculate MAE for each model
+mae_full_lm <- mae(actual_values, pred_full_lm)
+mae_full_glm_gaussian <- mae(actual_values, pred_full_glm_gaussian)
+mae_full_glm_gamma <- mae(actual_values, pred_full_glm_gamma)
+mae_full_logozone_glm_gamma <- mae(Ozone$log_Ozone, pred_full_logozone_glm_gamma) 
+
+mae_reduced_lm <- mae(actual_values, pred_reduced_lm)
+mae_reduced_glm_gaussian <- mae(actual_values, pred_reduced_glm_gaussian)
+mae_reduced_glm_gamma <- mae(actual_values, pred_reduced_glm_gamma)
+mae_reduced_logozone_glm_gamma <- mae(Ozone$log_Ozone, pred_reduced_logozone_glm_gamma) 
+
+# Store and compare the MAE values
+mae_values <- data.frame(
+  Model = c("Full LM", "Full GLM Gaussian", "Full GLM Gamma", 
+            "Full LogOzone GLM Gamma",  # Full LogOzone GLM Gamma added
+            "Reduced LM", "Reduced GLM Gaussian", "Reduced GLM Gamma",
+            "Reduced LogOzone GLM Gamma"),  # Reduced LogOzone GLM Gamma added
+  MAE = c(mae_full_lm, mae_full_glm_gaussian, mae_full_glm_gamma,
+          mae_full_logozone_glm_gamma,  # MAE for full LogOzone GLM Gamma
+          mae_reduced_lm, mae_reduced_glm_gaussian, mae_reduced_glm_gamma,
+          mae_reduced_logozone_glm_gamma)  # MAE for reduced LogOzone GLM Gamma
+)
+
+# Display MAE values for comparison
+print(mae_values)
+```
+
+# Final Model Comparison and Conclusion
+
+## 1. AIC (Akaike Information Criterion) Comparison
+
+-   Lower AIC values indicate a better balance between goodness-of-fit and model complexity.
+-   The **Reduced LogOzone GLM Gamma** model has the **lowest AIC (206.96)**, making it the best model based on model selection criteria.
+-   Other models (Full LM, Full GLM Gaussian, Full GLM Gamma) have similar AIC values of around **1186**, which are much higher, indicating worse performance compared to the reduced LogOzone GLM Gamma model.
+
+## 2. RMSE (Root Mean Squared Error) Comparison
+
+-   RMSE measures prediction accuracy, with lower values being better.
+-   The **Reduced LogOzone GLM Gamma** model has the **lowest RMSE (1.571)**, followed closely by the **Full LogOzone GLM Gamma** with **RMSE = 1.988**.
+-   The original models (Full LM, Full GLM Gaussian, Full GLM Gamma) have much higher RMSE values of around **4.24**, indicating less accurate predictions compared to the LogOzone models.
+
+## 3. MAE (Mean Absolute Error) Comparison
+
+-   MAE measures the average magnitude of prediction errors, with lower values indicating better performance.
+-   The **Reduced LogOzone GLM Gamma** model has the **lowest MAE (1.497)**, followed by the **Full LogOzone GLM Gamma** with **MAE = 1.834**.
+-   The Full LM, Full GLM Gaussian, and Full GLM Gamma models have higher MAE values of **3.416**, and the Reduced GLM Gamma model performs the worst with an MAE of **11.25**.
+
+## Conclusion
+
+Based on all three metrics (AIC, RMSE, and MAE): - The **Reduced LogOzone GLM Gamma** model performs the best overall. It has the lowest AIC, RMSE, and MAE, indicating that it balances model complexity, prediction accuracy, and overall fit better than the other models. - The **Full LogOzone GLM Gamma** model also performs well, especially in terms of prediction accuracy, though its AIC is slightly higher compared to the reduced version.
+
+Therefore, the **Reduced LogOzone GLM Gamma** model is the best choice for predicting the daily maximum one-hour average ozone reading in this case.
