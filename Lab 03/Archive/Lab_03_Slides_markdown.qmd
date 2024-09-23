@@ -57,9 +57,6 @@ print(p2)
 print(p3)
 ```
 
-
-
-
 ```{r}
 data("Ozone", package = "mlbench")
 View(Ozone)
@@ -89,10 +86,12 @@ full_model <- lm(Ozone ~ ., data = Ozone)
 # Perform backward stepwise selection
 backward_model <- step(full_model, direction = "backward")
 ```
+
 ```{r}
 # Perform backward stepwise selection
 backward_model <- step(full_model, direction = "backward")
 ```
+
 ```{r}
 # Use drop1() to test the effect of dropping each variable
 drop1(full_model, test = "F")
@@ -114,7 +113,6 @@ glm_gaussian <- glm(Ozone ~ Month + Humidity + Temp2, family = gaussian, data = 
 summary(glm_gaussian)
 ```
 
-
 ```{r}
 # Compare AIC of the GLM to the previous models (optional)
 AIC(full_model, reduced_model, glm_model, glm_poisson)
@@ -135,8 +133,6 @@ full_model <- glm(Ozone ~ ., data = Ozone, family = gaussian())
 backward_model <- step(full_model, direction = "backward")
 ```
 
-
-
 ```{r}
 # Fit the linear model (lm)
 lm_model <- lm(Ozone ~ ., data = Ozone)
@@ -149,17 +145,10 @@ AIC(lm_model, glm_model)
 
 ```
 
-
-
-
-
-
-
 ```{r}
 # Residual plot for lm model
 plot(lm_model, which = 1)
 ```
-
 
 ```{r}
 # Perform backward stepwise selection
@@ -167,5 +156,3 @@ backward_model <- step(lm_model, direction = "backward")
 # Perform backward stepwise selection
 backward_model <- step(glm_model, direction = "backward")
 ```
-
-
