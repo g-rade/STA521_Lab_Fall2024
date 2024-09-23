@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1223791/22c61f6be4b748b8b178871585534c27
+bundleId: https://api.rpubs.com/api/v1/document/1223791/22c61f6be4b748b8b178871585534c27
+url: http://rpubs.com/justinkao44/1223791/edit
+version: 1
