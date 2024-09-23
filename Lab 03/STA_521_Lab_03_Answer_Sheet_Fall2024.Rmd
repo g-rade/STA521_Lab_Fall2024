@@ -231,16 +231,15 @@ rmse_reduced_logozone_glm_gamma <- rmse(Ozone$log_Ozone, pred_reduced_logozone_g
 # Compare RMSE values
 rmse_values <- data.frame(
   Model = c("Full LM", "Full GLM Gaussian", "Full GLM Gamma", 
-            "Full LogOzone GLM Gamma",  # New full model
+            "Full LogOzone GLM Gamma",  
             "Reduced LM", "Reduced GLM Gaussian", "Reduced GLM Gamma", 
-            "Reduced LogOzone GLM Gamma"),  # New reduced model
+            "Reduced LogOzone GLM Gamma"),  
   RMSE = c(rmse_full_lm, rmse_full_glm_gaussian, rmse_full_glm_gamma,
-           rmse_full_logozone_glm_gamma,  # New full model RMSE
+           rmse_full_logozone_glm_gamma,  
            rmse_reduced_lm, rmse_reduced_glm_gaussian, rmse_reduced_glm_gamma,
-           rmse_reduced_logozone_glm_gamma)  # New reduced model RMSE
+           rmse_reduced_logozone_glm_gamma)  
 )
 
-# Display RMSE values for comparison
 print(rmse_values)
 
 ```
@@ -276,16 +275,15 @@ mae_reduced_logozone_glm_gamma <- mae(Ozone$log_Ozone, pred_reduced_logozone_glm
 # Store and compare the MAE values
 mae_values <- data.frame(
   Model = c("Full LM", "Full GLM Gaussian", "Full GLM Gamma", 
-            "Full LogOzone GLM Gamma",  # Full LogOzone GLM Gamma added
+            "Full LogOzone GLM Gamma",  
             "Reduced LM", "Reduced GLM Gaussian", "Reduced GLM Gamma",
-            "Reduced LogOzone GLM Gamma"),  # Reduced LogOzone GLM Gamma added
+            "Reduced LogOzone GLM Gamma"),  
   MAE = c(mae_full_lm, mae_full_glm_gaussian, mae_full_glm_gamma,
-          mae_full_logozone_glm_gamma,  # MAE for full LogOzone GLM Gamma
+          mae_full_logozone_glm_gamma,  
           mae_reduced_lm, mae_reduced_glm_gaussian, mae_reduced_glm_gamma,
-          mae_reduced_logozone_glm_gamma)  # MAE for reduced LogOzone GLM Gamma
+          mae_reduced_logozone_glm_gamma)  
 )
 
-# Display MAE values for comparison
 print(mae_values)
 ```
 
