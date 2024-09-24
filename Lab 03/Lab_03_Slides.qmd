@@ -462,7 +462,7 @@ plot(lm_model, which = 1)
 
 ::: {style="font-size: 60%;"}
 | **Aspect**                | **Linear Model (LM)**                                                                           | **Generalized Linear Model (GLM)**                                                                                                                              |
-|-------------------|-------------------------|-----------------------------|
+|-------------------|-------------------------|----------------------------|
 | **Normality Assumption**  | Assumes normal distribution for the response variable and errors $\epsilon \sim N(0, \sigma^2)$ | Does not assume normality; allows for non-normal distributions such as binomial, Poisson, etc.                                                                  |
 | **Error Distribution**    | Errors follow a normal distribution $N(0, \sigma^2)$                                            | Errors can follow distributions from the exponential family (e.g., binomial, Poisson, gamma)                                                                    |
 | **Response Distribution** | The response variable is assumed to be normally distributed                                     | The response variable can follow different distributions, depending on the link function and data type (e.g., binomial for binary data, Poisson for count data) |
@@ -533,7 +533,7 @@ $$\text{AIC} = 2k - 2 \ln(L)$$ Where:
 ## Common examples: {.smaller}
 
 | Variable Type                             | Common Dist.             | Common Link |
-|-------------------------------|-----------------------|-------------------|
+|------------------------------|-----------------------|-------------------|
 | Real-valued with a bell-shaped dist.      | Normal (Gaussian)        | Identity    |
 | Binary (0/1)                              | Binomial                 | Logit       |
 | Count                                     | Poisson                  | Log         |
@@ -550,7 +550,7 @@ strictly positive. Values of zero are not allowed.)
     time, until there is no improvement in the selection criterion.
 
 | Area                                               | Backward          | Forward              |
-|-----------------------------------|------------------|------------------|
+|-----------------------------------|-------------------|-------------------|
 | 1\. Which model to start with?                     | Full model        | Intercept-only model |
 | 2\. Add or drop variables?                         | Drop              | Add                  |
 | 3\. Which method tends to produce a simpler model? | Forward selection | Forward selection    |

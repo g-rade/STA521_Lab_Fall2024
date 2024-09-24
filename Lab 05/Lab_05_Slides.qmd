@@ -1,0 +1,57 @@
+---
+title: "STA521 Lab 05"
+author: "Justin Kao"
+footer: "Sta 521 - Fall 2024"
+format:
+  revealjs:
+    theme: slides.scss
+    transition: fade
+    logo: StatSciLogo.jpg
+    slide-number: true
+    self-contained: true
+    auto-stretch: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Course Tools {.center}
+
+## RStudio Online: Your Data Science Playground {.smaller}
+
+<br/>
+
+::: {.large .center}
+[Access RStudio Online Here!](https://rstudio.stat.duke.edu)
+:::
+
+-   **Browser-based**: Access RStudio right from your browser—no setup
+    headaches.
+-   **Duke VPN or Campus Connection**: Seamlessly connect from anywhere
+    using Duke VPN (Cisco) or while on campus.
+-   **Cloud-Powered**: Harness the power of online resources—save your
+    computer's CPU and GPU for other tasks.
+-   **Hassle-Free Setup**: No need to run `install.packages`—everything
+    is pre-installed and ready to go!
+
+[Source: Dr. Colin Rundel STA
+523](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://sta523-fa23.github.io/slides/Lec01.pdf)
+
+
+
+## Source {.smaller}
+
+-   Leo Breiman, Department of Statistics, UC Berkeley. Data used in Leo
+    Breiman and Jerome H. Friedman (1985), Estimating optimal
+    transformations for multiple regression and correlation, JASA, 80,
+    pp. 580-598.
+-   Dr. Colin rundel STA 523 Slides
+-   Dr. David Banks STA 521 Slides
+-   Dr. Ambrose Lo [ACTEX](https://sites.google.com/site/ambroseloyp/)
+-   An Introduction to Statistical Learning(ISLR)
+
+# Thank you! {.smaller}
+
+::: r-stack
+Remember to submit your work on Canvas. Have a great rest of your day!
+:::
